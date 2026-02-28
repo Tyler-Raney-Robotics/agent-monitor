@@ -68,19 +68,19 @@ const DEMO_CHAT_RESPONSES = [
   "Here's what I found...",
 ];
 
-/** Auto-assign avatar + color for discovered agents */
-const AGENT_AVATARS: AgentConfig['avatar'][] = ['glasses', 'hoodie', 'suit', 'casual', 'robot', 'cat'];
-const AGENT_COLORS = ['#4FC3F7', '#66BB6A', '#FFCA28', '#AB47BC', '#EF5350', '#FF9800'];
-const AGENT_EMOJIS = ['⚡', '🔥', '🌟', '🎯', '🚀', '🧠'];
+/** Auto-assign avatar + color for discovered agents (space crew) */
+const AGENT_AVATARS: AgentConfig['avatar'][] = ['commander', 'engineer', 'scientist', 'technician', 'droid', 'alien_cat'];
+const AGENT_COLORS = ['#00ccff', '#ff6b00', '#00ff88', '#ffaa00', '#ff3355', '#cc99ff'];
+const AGENT_EMOJIS = ['🚀', '🔧', '🔬', '⚙️', '🤖', '👾'];
 
 function sessionToAgentConfig(sess: GatewaySessionInfo, index: number): AgentConfig {
   const isMain = !sess.isSubagent;
   return {
     id: sess.id,
     name: sess.name,
-    emoji: sess.emoji ?? (isMain ? '⚡' : AGENT_EMOJIS[(index) % AGENT_EMOJIS.length]),
-    color: isMain ? '#4FC3F7' : AGENT_COLORS[(index) % AGENT_COLORS.length],
-    avatar: isMain ? 'glasses' : AGENT_AVATARS[(index) % AGENT_AVATARS.length],
+    emoji: sess.emoji ?? (isMain ? '🚀' : AGENT_EMOJIS[(index) % AGENT_EMOJIS.length]),
+    color: isMain ? '#00ccff' : AGENT_COLORS[(index) % AGENT_COLORS.length],
+    avatar: isMain ? 'commander' : AGENT_AVATARS[(index) % AGENT_AVATARS.length],
   };
 }
 
@@ -106,11 +106,11 @@ function sessionToDashboardState(sess: GatewaySessionInfo): AgentDashboardState 
   };
 }
 
-/** The default demo agent configs */
+/** The default demo agent configs (space crew) */
 const DEMO_AGENTS: AgentConfig[] = [
-  { id: 'demo-1', name: 'Atlas', emoji: '🔥', color: '#4FC3F7', avatar: 'glasses' },
-  { id: 'demo-2', name: 'Nova', emoji: '✨', color: '#66BB6A', avatar: 'hoodie' },
-  { id: 'demo-3', name: 'Spark', emoji: '⚡', color: '#FFCA28', avatar: 'robot' },
+  { id: 'demo-1', name: 'Atlas', emoji: '🚀', color: '#00ccff', avatar: 'commander' },
+  { id: 'demo-2', name: 'Nova', emoji: '🔧', color: '#ff6b00', avatar: 'engineer' },
+  { id: 'demo-3', name: 'Spark', emoji: '🤖', color: '#ffaa00', avatar: 'droid' },
 ];
 
 export function useAgents(forceDemoMode = false): UseAgentsReturn {

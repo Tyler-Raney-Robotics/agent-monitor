@@ -29,10 +29,10 @@ export interface UseOfficeReturn {
   tick: () => void;
 }
 
-const DESK_ZONES: ZoneId[] = ['desk_0', 'desk_1', 'desk_2', 'desk_3', 'desk_4', 'desk_5'];
+const CONSOLE_ZONES: ZoneId[] = ['console_0', 'console_1', 'console_2', 'console_3', 'console_4', 'console_5'];
 
 function createInitialAgentRuntime(id: string, index: number): AgentRuntime {
-  const deskZone = DESK_ZONES[index] ?? 'desk_0';
+  const deskZone = CONSOLE_ZONES[index] ?? 'console_0';
   const zone = getZone(deskZone, 6);
   const pos = zone ? zone.center : { col: 4, row: 3 + index * 3 };
   return {

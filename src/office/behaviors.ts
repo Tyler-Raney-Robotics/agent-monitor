@@ -1,11 +1,11 @@
 // ============================================================================
-// Behavior → Zone + Animation Mapping
+// Behavior → Zone + Animation Mapping (Space Station)
 // ============================================================================
 
 import type { AgentBehavior, CharacterAnim, ZoneId, Particle } from '@/lib/types';
 
 export interface BehaviorMapping {
-  /** Target zone (or '_own_desk' for the agent's assigned desk) */
+  /** Target zone (or '_own_desk' for the agent's assigned console) */
   zone: ZoneId | '_own_desk';
   /** Animation to play once at the zone */
   anim: CharacterAnim;
@@ -22,39 +22,39 @@ export const BEHAVIOR_MAP: Record<AgentBehavior, BehaviorMapping> = {
   working: {
     zone: '_own_desk',
     anim: 'sit_typing',
-    bubble: '💻 Working...',
+    bubble: '🖥️ On station...',
     particle: 'code',
     priority: 3,
   },
   thinking: {
     zone: '_own_desk',
     anim: 'sit_idle',
-    bubble: '🤔 Thinking...',
+    bubble: '🤔 Analyzing...',
     particle: 'question',
     priority: 2,
   },
   researching: {
-    zone: 'library',
+    zone: 'research_bay',
     anim: 'headphones',
-    bubble: '📚 Researching',
+    bubble: '🔬 Researching',
     particle: 'sparkle',
     priority: 2,
   },
   meeting: {
-    zone: 'meeting_room',
+    zone: 'briefing_room',
     anim: 'raise_hand',
-    bubble: '🤝 In meeting',
+    bubble: '📋 Mission brief',
     priority: 3,
   },
   deploying: {
-    zone: 'server_room',
+    zone: 'server_core',
     anim: 'run',
     bubble: '🚀 Deploying!',
     particle: 'lightning',
     priority: 4,
   },
   debugging: {
-    zone: '_own_desk',
+    zone: 'project_lab_1',
     anim: 'sit_typing',
     bubble: '🐛 Debugging...',
     particle: 'error',
@@ -63,72 +63,73 @@ export const BEHAVIOR_MAP: Record<AgentBehavior, BehaviorMapping> = {
 
   // Interaction
   receiving_task: {
-    zone: 'boss_office',
+    zone: 'command_bridge',
     anim: 'hand_task',
-    bubble: '📋 New task!',
+    bubble: '📋 New orders!',
     particle: 'sparkle',
     priority: 4,
   },
   reporting: {
-    zone: 'boss_office',
+    zone: 'command_bridge',
     anim: 'thumbs_up',
-    bubble: '✅ Done!',
+    bubble: '✅ Mission complete!',
     particle: 'check',
     priority: 3,
   },
 
   // Life
   idle: {
-    zone: 'break_room',
+    zone: 'mess_hall',
     anim: 'drink_coffee',
-    bubble: '☕ Coffee time',
+    bubble: '☕ Ration break',
     particle: 'coffee_steam',
     priority: 0,
   },
   coffee: {
-    zone: 'break_room',
+    zone: 'mess_hall',
     anim: 'drink_coffee',
-    bubble: '☕ Coffee time',
+    bubble: '☕ Synthesized coffee',
     particle: 'coffee_steam',
     priority: 1,
   },
   snacking: {
-    zone: 'break_room',
+    zone: 'mess_hall',
     anim: 'stand',
-    bubble: '🍪 Snack break',
+    bubble: '🍜 Nutrient pack',
     priority: 1,
   },
   toilet: {
-    zone: 'break_room',
+    zone: 'crew_quarters',
     anim: 'walk_frame1',
     priority: 1,
   },
   sleeping: {
-    zone: 'lounge',
+    zone: 'crew_quarters',
     anim: 'sleep',
-    bubble: '😴',
+    bubble: '😴 Cryo-rest',
     particle: 'zzz',
     priority: 0,
   },
   napping: {
     zone: '_own_desk',
     anim: 'sleep',
+    bubble: '😴 Quick rest',
     particle: 'zzz',
     priority: 0,
   },
 
   // Anomaly
   panicking: {
-    zone: '_own_desk',
+    zone: 'airlock',
     anim: 'run',
-    bubble: '😱 Error!',
+    bubble: '🚨 Alert!',
     particle: 'error',
     priority: 5,
   },
   dead: {
     zone: '_own_desk',
     anim: 'sleep',
-    bubble: '💀 Crashed',
+    bubble: '💀 System failure',
     particle: 'smoke',
     priority: 0,
   },
@@ -142,13 +143,13 @@ export const BEHAVIOR_MAP: Record<AgentBehavior, BehaviorMapping> = {
   reviving: {
     zone: '_own_desk',
     anim: 'stand',
-    bubble: '🔄 Restarting...',
+    bubble: '🔄 Rebooting...',
     particle: 'lightning',
     priority: 3,
   },
 };
 
-/** Get the actual zone ID for a behavior, resolving '_own_desk' */
+/** Get the actual zone ID for a behavior, resolving '_own_desk' to agent's console */
 export function resolveZone(behavior: AgentBehavior, deskZone: ZoneId): ZoneId {
   const mapping = BEHAVIOR_MAP[behavior];
   return mapping.zone === '_own_desk' ? deskZone : mapping.zone;

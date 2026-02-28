@@ -21,16 +21,16 @@ export type { DashboardConfig, AgentConfig, OwnerConfig, GatewayConfig, ThemeNam
 export const MAX_AGENTS = 6;
 
 export const AGENT_COLOR_PALETTE = [
-  '#4FC3F7', // blue
-  '#FF7043', // orange
-  '#66BB6A', // green
-  '#AB47BC', // purple
-  '#FFCA28', // yellow
-  '#EF5350', // red
+  '#00ccff', // cyan
+  '#ff6b00', // orange
+  '#00ff88', // green
+  '#cc99ff', // purple
+  '#ffaa00', // amber
+  '#ff3355', // red
 ];
 
-export const AVATAR_OPTIONS: AgentAvatar[] = ['glasses', 'hoodie', 'suit', 'casual', 'robot', 'cat', 'dog'];
-export const OWNER_AVATAR_OPTIONS: OwnerAvatar[] = ['boss', 'casual', 'creative'];
+export const AVATAR_OPTIONS: AgentAvatar[] = ['commander', 'engineer', 'scientist', 'technician', 'droid', 'alien_cat', 'alien_dog'];
+export const OWNER_AVATAR_OPTIONS: OwnerAvatar[] = ['captain', 'admiral', 'mission_control'];
 
 // ---------------------------------------------------------------------------
 // Defaults
@@ -42,15 +42,15 @@ export const DEFAULT_GATEWAY: GatewayConfig = {
 };
 
 export const DEFAULT_OWNER: OwnerConfig = {
-  name: 'Boss',
-  emoji: '👔',
-  avatar: 'boss',
+  name: 'Captain',
+  emoji: '🚀',
+  avatar: 'captain',
 };
 
 export const DEFAULT_AGENTS: AgentConfig[] = [
-  { id: 'main', name: 'Claude', emoji: '⚡', color: '#4FC3F7', avatar: 'glasses' },
-  { id: 'agent-2', name: 'GPT', emoji: '🔥', color: '#FF7043', avatar: 'hoodie' },
-  { id: 'agent-3', name: 'Gemini', emoji: '🌟', color: '#66BB6A', avatar: 'suit' },
+  { id: 'main', name: 'Claude', emoji: '🚀', color: '#00ccff', avatar: 'commander' },
+  { id: 'agent-2', name: 'GPT', emoji: '🔧', color: '#ff6b00', avatar: 'engineer' },
+  { id: 'agent-3', name: 'Gemini', emoji: '🔬', color: '#00ff88', avatar: 'scientist' },
 ];
 
 export const DEFAULT_CONFIG: DashboardConfig = {

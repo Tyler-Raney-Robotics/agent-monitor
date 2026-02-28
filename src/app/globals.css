@@ -1,71 +1,83 @@
 @import "tailwindcss";
 
 /* ============================================================================
-   AgentMonitor — Theme System
+   AgentMonitor — Space Station Command Center Theme System
    ============================================================================ */
 
-/* Default (Midnight) */
+/* Default (Space) - Deep space with orange accents */
 [data-theme="default"], :root {
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #10101a;
-  --bg-card: rgba(26, 26, 46, 0.8);
-  --bg-card-hover: rgba(36, 36, 56, 0.9);
-  --text-primary: #e0e0e0;
-  --text-secondary: #888888;
-  --accent-primary: #4FC3F7;
-  --accent-success: #66BB6A;
-  --accent-warning: #FFCA28;
-  --accent-danger: #EF5350;
-  --accent-info: #AB47BC;
-  --border: rgba(255, 255, 255, 0.1);
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #0d1525;
+  --bg-card: rgba(15, 25, 45, 0.85);
+  --bg-card-hover: rgba(25, 40, 70, 0.9);
+  --text-primary: #e8eef5;
+  --text-secondary: #7a8ba8;
+  --accent-primary: #ff6b00;
+  --accent-success: #00ff88;
+  --accent-warning: #ffaa00;
+  --accent-danger: #ff3355;
+  --accent-info: #00ccff;
+  --border: rgba(255, 107, 0, 0.2);
+  --metallic-light: #3d4a5c;
+  --metallic-mid: #2a3544;
+  --metallic-dark: #1a2233;
 }
 
-/* Dark (Void) */
+/* Dark (Void) - Pure black space */
 [data-theme="dark"] {
-  --bg-primary: #000000;
-  --bg-secondary: #0a0a0a;
-  --bg-card: rgba(15, 15, 20, 0.9);
-  --bg-card-hover: rgba(25, 25, 35, 0.95);
-  --text-primary: #c0c0c0;
-  --text-secondary: #666666;
-  --accent-primary: #5C6BC0;
-  --accent-success: #4CAF50;
-  --accent-warning: #FF9800;
-  --accent-danger: #F44336;
-  --accent-info: #7E57C2;
-  --border: rgba(255, 255, 255, 0.06);
+  --bg-primary: #000005;
+  --bg-secondary: #05080f;
+  --bg-card: rgba(8, 12, 20, 0.92);
+  --bg-card-hover: rgba(15, 22, 35, 0.95);
+  --text-primary: #b8c4d4;
+  --text-secondary: #556688;
+  --accent-primary: #ff5500;
+  --accent-success: #00dd66;
+  --accent-warning: #ff8800;
+  --accent-danger: #ff2244;
+  --accent-info: #00aadd;
+  --border: rgba(255, 85, 0, 0.15);
+  --metallic-light: #2a3344;
+  --metallic-mid: #1a2233;
+  --metallic-dark: #0a1018;
 }
 
-/* Cozy (Warm) */
+/* Cozy (Nebula) - Warm cosmic colors */
 [data-theme="cozy"] {
-  --bg-primary: #1a1008;
-  --bg-secondary: #1f150c;
-  --bg-card: rgba(45, 30, 15, 0.8);
-  --bg-card-hover: rgba(55, 40, 25, 0.9);
-  --text-primary: #f0e0d0;
-  --text-secondary: #a08060;
-  --accent-primary: #FFB74D;
-  --accent-success: #81C784;
-  --accent-warning: #FFD54F;
-  --accent-danger: #E57373;
-  --accent-info: #CE93D8;
-  --border: rgba(255, 180, 80, 0.15);
+  --bg-primary: #1a0f18;
+  --bg-secondary: #22141f;
+  --bg-card: rgba(45, 25, 40, 0.85);
+  --bg-card-hover: rgba(60, 35, 55, 0.9);
+  --text-primary: #f5e8f0;
+  --text-secondary: #a88090;
+  --accent-primary: #ff8855;
+  --accent-success: #88ddaa;
+  --accent-warning: #ffcc66;
+  --accent-danger: #ff7788;
+  --accent-info: #cc99ff;
+  --border: rgba(255, 136, 85, 0.18);
+  --metallic-light: #4a3545;
+  --metallic-mid: #352530;
+  --metallic-dark: #201520;
 }
 
-/* Cyberpunk (Neon) */
+/* Cyberpunk (Neon Station) */
 [data-theme="cyberpunk"] {
-  --bg-primary: #0a0012;
-  --bg-secondary: #100020;
-  --bg-card: rgba(30, 0, 50, 0.8);
-  --bg-card-hover: rgba(40, 0, 70, 0.9);
-  --text-primary: #e0d0f0;
-  --text-secondary: #9070b0;
-  --accent-primary: #FF4081;
-  --accent-success: #00E676;
-  --accent-warning: #FFEA00;
-  --accent-danger: #FF1744;
-  --accent-info: #D500F9;
-  --border: rgba(255, 64, 129, 0.15);
+  --bg-primary: #08001a;
+  --bg-secondary: #100028;
+  --bg-card: rgba(25, 0, 55, 0.85);
+  --bg-card-hover: rgba(40, 0, 80, 0.9);
+  --text-primary: #e8d8ff;
+  --text-secondary: #9070cc;
+  --accent-primary: #ff00aa;
+  --accent-success: #00ff66;
+  --accent-warning: #ffee00;
+  --accent-danger: #ff0044;
+  --accent-info: #00ffff;
+  --border: rgba(255, 0, 170, 0.2);
+  --metallic-light: #4a2868;
+  --metallic-mid: #301848;
+  --metallic-dark: #180830;
 }
 
 /* ============================================================================
@@ -87,6 +99,26 @@ body {
 }
 
 /* ============================================================================
+   Space Station Specific Styles
+   ============================================================================ */
+
+.station-panel {
+  background: linear-gradient(180deg, var(--metallic-light) 0%, var(--metallic-dark) 100%);
+  border: 1px solid var(--border);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.status-glow {
+  box-shadow: 0 0 10px var(--accent-primary), 0 0 20px rgba(255, 107, 0, 0.3);
+}
+
+.alert-glow {
+  box-shadow: 0 0 15px var(--accent-danger), 0 0 30px rgba(255, 51, 85, 0.4);
+}
+
+/* ============================================================================
    Animations
    ============================================================================ */
 
@@ -105,6 +137,21 @@ body {
   50% { transform: translateY(-4px); }
 }
 
+@keyframes blink-alert {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes starfield {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100px); }
+}
+
 .animate-slide-in {
   animation: slide-in 0.3s ease-out;
 }
@@ -117,6 +164,14 @@ body {
   animation: float 3s ease-in-out infinite;
 }
 
+.animate-blink {
+  animation: blink-alert 1s ease-in-out infinite;
+}
+
+.animate-scan {
+  animation: scan-line 2s linear infinite;
+}
+
 /* ============================================================================
    Scrollbar
    ============================================================================ */
@@ -127,16 +182,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--metallic-dark);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--metallic-light);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--accent-primary);
 }
 
 /* ============================================================================

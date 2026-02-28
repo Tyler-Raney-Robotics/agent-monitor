@@ -1,5 +1,5 @@
 // ============================================================================
-// Generic Character Sprite System
+// Space Station Character Sprite System
 // ============================================================================
 
 import type { CharacterAnim, Direction, AgentAvatar, OwnerAvatar } from '@/lib/types';
@@ -16,6 +16,8 @@ interface CharPalette {
   pants: string;
   shoes: string;
   eyes: string;
+  helmet?: string;
+  visor?: string;
 }
 
 const BASE_SKIN = '#FFDAB9';
@@ -23,90 +25,100 @@ const BASE_SKIN_SHADOW = '#E8C4A0';
 
 function agentPalette(avatar: AgentAvatar, color: string): CharPalette {
   switch (avatar) {
-    case 'glasses':
+    case 'commander':
       return {
         skin: BASE_SKIN, skinShadow: BASE_SKIN_SHADOW,
         hair: '#2D1B00', hairLight: '#4A2F10',
-        top: '#2D2D3D', topLight: '#3D3D4D',
-        accent: color, accentFrame: '#333333',
-        pants: '#37474F', shoes: '#5D4037', eyes: '#333333',
+        top: '#1a2a4a', topLight: '#2a3a5a', // Navy command uniform
+        accent: color, accentFrame: '#ffd700', // Gold rank insignia
+        pants: '#1a2a4a', shoes: '#2a2a2a', eyes: '#333333',
+        helmet: '#3a4a5a', visor: '#00ccff',
       };
-    case 'hoodie':
+    case 'engineer':
       return {
         skin: BASE_SKIN, skinShadow: BASE_SKIN_SHADOW,
         hair: '#1A1A1A', hairLight: '#333333',
-        top: color, topLight: lighten(color, 20),
-        accent: '#FFFFFF', accentFrame: '#CCCCCC',
-        pants: '#37474F', shoes: '#424242', eyes: '#333333',
+        top: '#ff6b00', topLight: lighten('#ff6b00', 20), // Orange jumpsuit
+        accent: '#ffaa00', accentFrame: '#ff8800',
+        pants: '#4a3a2a', shoes: '#3a3a3a', eyes: '#333333',
+        helmet: '#4a4a4a', visor: '#ffaa00',
       };
-    case 'suit':
+    case 'scientist':
       return {
         skin: BASE_SKIN, skinShadow: BASE_SKIN_SHADOW,
         hair: '#3E2723', hairLight: '#5D4037',
-        top: '#263238', topLight: '#37474F',
-        accent: color, accentFrame: color,
-        pants: '#1A237E', shoes: '#3E2723', eyes: '#333333',
+        top: '#e8e8f0', topLight: '#f8f8ff', // White lab coat
+        accent: color, accentFrame: '#00ccff',
+        pants: '#2a2a3a', shoes: '#3E2723', eyes: '#333333',
+        helmet: '#e8e8f0', visor: '#88ffaa',
       };
-    case 'casual':
+    case 'technician':
       return {
         skin: BASE_SKIN, skinShadow: BASE_SKIN_SHADOW,
         hair: '#6D4C41', hairLight: '#8D6E63',
-        top: color, topLight: lighten(color, 25),
-        accent: '#FFFFFF', accentFrame: '#E0E0E0',
-        pants: '#455A64', shoes: '#795548', eyes: '#333333',
+        top: '#3a5a5a', topLight: lighten('#3a5a5a', 25), // Teal utility suit
+        accent: '#00ff88', accentFrame: '#00cc66',
+        pants: '#2a3a3a', shoes: '#2a2a2a', eyes: '#333333',
+        helmet: '#4a5a5a', visor: '#00ff88',
       };
-    case 'robot':
+    case 'droid':
       return {
-        skin: '#B0BEC5', skinShadow: '#90A4AE',
-        hair: '#546E7A', hairLight: '#78909C',
-        top: '#455A64', topLight: '#607D8B',
+        skin: '#607D8B', skinShadow: '#546E7A', // Metallic gray
+        hair: '#455A64', hairLight: '#607D8B',
+        top: '#37474F', topLight: '#455A64',
         accent: color, accentFrame: color,
-        pants: '#37474F', shoes: '#263238', eyes: color,
+        pants: '#263238', shoes: '#1a1a1a', eyes: '#ff6b00', // Orange sensor eyes
+        helmet: '#546E7A', visor: '#ff6b00',
       };
-    case 'cat':
+    case 'alien_cat':
       return {
-        skin: '#FFE0B2', skinShadow: '#FFD180',
-        hair: '#FF8A65', hairLight: '#FFAB91',
+        skin: '#b8e8ff', skinShadow: '#88d0ff', // Light blue alien fur
+        hair: '#66ccff', hairLight: '#99ddff',
         top: color, topLight: lighten(color, 20),
-        accent: '#FF7043', accentFrame: '#E64A19',
-        pants: '#5D4037', shoes: '#4E342E', eyes: '#333333',
+        accent: '#ff88aa', accentFrame: '#ff6699',
+        pants: '#3a4a5a', shoes: '#2a3a4a', eyes: '#ff00aa', // Magenta cat eyes
+        helmet: '#4a6080', visor: '#ff88dd',
       };
-    case 'dog':
+    case 'alien_dog':
       return {
-        skin: '#D7CCC8', skinShadow: '#BCAAA4',
-        hair: '#795548', hairLight: '#8D6E63',
+        skin: '#d0c0e8', skinShadow: '#b0a0c8', // Lavender alien fur
+        hair: '#8868a8', hairLight: '#a888c8',
         top: color, topLight: lighten(color, 20),
-        accent: '#3E2723', accentFrame: '#4E342E',
-        pants: '#455A64', shoes: '#37474F', eyes: '#333333',
+        accent: '#ffcc00', accentFrame: '#ffaa00',
+        pants: '#3a3a4a', shoes: '#2a2a3a', eyes: '#ff8800', // Amber eyes
+        helmet: '#5a4a6a', visor: '#ffcc00',
       };
   }
 }
 
 function ownerPalette(avatar: OwnerAvatar): CharPalette {
   switch (avatar) {
-    case 'boss':
+    case 'captain':
       return {
         skin: BASE_SKIN, skinShadow: BASE_SKIN_SHADOW,
-        hair: '#4A2800', hairLight: '#6B3A00',
-        top: '#5C6BC0', topLight: '#7986CB',
-        accent: '#FFFFFF', accentFrame: '#E0E0E0',
-        pants: '#37474F', shoes: '#795548', eyes: '#333333',
+        hair: '#2a1800', hairLight: '#4a2800',
+        top: '#1a1a3a', topLight: '#2a2a4a', // Dark command uniform
+        accent: '#ffd700', accentFrame: '#ffaa00', // Gold captain insignia
+        pants: '#1a1a2a', shoes: '#2a2a2a', eyes: '#333333',
+        helmet: '#2a3a4a', visor: '#00ccff',
       };
-    case 'casual':
+    case 'admiral':
       return {
         skin: BASE_SKIN, skinShadow: BASE_SKIN_SHADOW,
-        hair: '#5D4037', hairLight: '#795548',
-        top: '#43A047', topLight: '#66BB6A',
-        accent: '#FFFFFF', accentFrame: '#E0E0E0',
-        pants: '#455A64', shoes: '#6D4C41', eyes: '#333333',
+        hair: '#5a5a5a', hairLight: '#7a7a7a', // Gray hair
+        top: '#0a0a2a', topLight: '#1a1a3a', // Darker formal uniform
+        accent: '#ffd700', accentFrame: '#ff6b00',
+        pants: '#0a0a1a', shoes: '#1a1a1a', eyes: '#333333',
+        helmet: '#1a2a3a', visor: '#ffd700',
       };
-    case 'creative':
+    case 'mission_control':
       return {
         skin: BASE_SKIN, skinShadow: BASE_SKIN_SHADOW,
-        hair: '#880E4F', hairLight: '#AD1457',
-        top: '#FF6F00', topLight: '#FFA000',
-        accent: '#FFFFFF', accentFrame: '#FFE0B2',
-        pants: '#37474F', shoes: '#4E342E', eyes: '#333333',
+        hair: '#4a3020', hairLight: '#6a4030',
+        top: '#2a4a5a', topLight: '#3a5a6a', // Teal mission control uniform
+        accent: '#00ff88', accentFrame: '#00cc66',
+        pants: '#2a3a4a', shoes: '#2a2a2a', eyes: '#333333',
+        helmet: '#3a4a5a', visor: '#00ff88',
       };
   }
 }
@@ -137,8 +149,8 @@ function drawCharacter(
   tick: number,
   palette: CharPalette,
   emoji: string,
-  hasGlasses: boolean,
-  hasPonytail: boolean,
+  isDroid: boolean,
+  hasAntenna: boolean,
 ): void {
   const scale = 2;
   const ox = x - 12;
@@ -166,14 +178,26 @@ function drawCharacter(
   ctx.fillText(emoji, x, oy + 2);
   ctx.restore();
 
-  // Hair
-  for (let i = 3; i <= 8; i++) px(ctx, i, 2, palette.hair, scale, ox, oy);
-  for (let i = 2; i <= 9; i++) px(ctx, i, 3, palette.hair, scale, ox, oy);
+  // Hair/Helmet
+  if (isDroid) {
+    // Droid head casing
+    for (let i = 3; i <= 8; i++) px(ctx, i, 2, palette.helmet || '#546E7A', scale, ox, oy);
+    for (let i = 2; i <= 9; i++) px(ctx, i, 3, palette.helmet || '#546E7A', scale, ox, oy);
+    // Antenna
+    px(ctx, 5, 1, '#ff6b00', scale, ox, oy);
+    px(ctx, 6, 0, '#ffaa00', scale, ox, oy);
+  } else {
+    // Hair
+    for (let i = 3; i <= 8; i++) px(ctx, i, 2, palette.hair, scale, ox, oy);
+    for (let i = 2; i <= 9; i++) px(ctx, i, 3, palette.hair, scale, ox, oy);
+  }
 
-  if (hasPonytail) {
-    px(ctx, 9, 4, palette.hairLight, scale, ox, oy);
-    px(ctx, 10, 4, palette.hairLight, scale, ox, oy);
-    px(ctx, 10, 5, palette.hairLight, scale, ox, oy);
+  // Antenna for aliens
+  if (hasAntenna) {
+    px(ctx, 4, 1, palette.accent, scale, ox, oy);
+    px(ctx, 4, 0, palette.accentFrame, scale, ox, oy);
+    px(ctx, 7, 1, palette.accent, scale, ox, oy);
+    px(ctx, 7, 0, palette.accentFrame, scale, ox, oy);
   }
 
   // Head/face
@@ -182,26 +206,35 @@ function drawCharacter(
   for (let i = 3; i <= 8; i++) px(ctx, i, 6, palette.skin, scale, ox, oy);
   for (let i = 4; i <= 7; i++) px(ctx, i, 7, palette.skin, scale, ox, oy);
 
-  if (hasGlasses) {
-    px(ctx, 4, 5, palette.accentFrame, scale, ox, oy);
-    px(ctx, 5, 5, palette.accent, scale, ox, oy);
-    px(ctx, 6, 5, palette.accentFrame, scale, ox, oy);
-    px(ctx, 7, 5, palette.accent, scale, ox, oy);
-    px(ctx, 8, 5, palette.accentFrame, scale, ox, oy);
-  }
-
-  // Eyes
+  // Eyes (droids have glowing sensors)
   if (tick % 120 < 115) {
-    px(ctx, 5, 5, palette.eyes, scale, ox, oy);
-    px(ctx, 7, 5, palette.eyes, scale, ox, oy);
+    if (isDroid) {
+      px(ctx, 4, 5, palette.eyes, scale, ox, oy);
+      px(ctx, 5, 5, palette.eyes, scale, ox, oy);
+      px(ctx, 6, 5, palette.eyes, scale, ox, oy);
+      px(ctx, 7, 5, palette.eyes, scale, ox, oy);
+      // Pulsing effect
+      if (tick % 20 < 10) {
+        px(ctx, 5, 5, lighten(palette.eyes, 40), scale, ox, oy);
+        px(ctx, 6, 5, lighten(palette.eyes, 40), scale, ox, oy);
+      }
+    } else {
+      px(ctx, 5, 5, palette.eyes, scale, ox, oy);
+      px(ctx, 7, 5, palette.eyes, scale, ox, oy);
+    }
   } else {
     px(ctx, 5, 5, palette.skinShadow, scale, ox, oy);
     px(ctx, 7, 5, palette.skinShadow, scale, ox, oy);
   }
 
   // Mouth
-  px(ctx, 5, 7, palette.skinShadow, scale, ox, oy);
-  px(ctx, 6, 7, palette.skinShadow, scale, ox, oy);
+  if (!isDroid) {
+    px(ctx, 5, 7, palette.skinShadow, scale, ox, oy);
+    px(ctx, 6, 7, palette.skinShadow, scale, ox, oy);
+  }
+
+  // Rank insignia / badge on shoulder
+  px(ctx, 3, 8, palette.accentFrame, scale, ox, oy);
 
   drawBody(ctx, anim, frame, palette, scale, ox, oy);
 
@@ -221,6 +254,9 @@ function drawBody(
         px(ctx, i, row, row === 8 ? p.topLight : p.top, scale, ox, oy);
       }
     }
+    // Suit details
+    px(ctx, 5, 9, p.accent, scale, ox, oy);
+    px(ctx, 6, 9, p.accent, scale, ox, oy);
     px(ctx, 5, 10, p.topLight, scale, ox, oy);
     px(ctx, 6, 10, p.topLight, scale, ox, oy);
 
@@ -255,6 +291,10 @@ function drawBody(
         px(ctx, i, row, row === 8 ? p.topLight : p.top, scale, ox, oy);
       }
     }
+    // Suit stripe
+    px(ctx, 5, 10, p.accent, scale, ox, oy);
+    px(ctx, 6, 10, p.accent, scale, ox, oy);
+    
     if (anim === 'walk_frame1') {
       px(ctx, 2, 9, p.top, scale, ox, oy);
       px(ctx, 2, 10, p.skin, scale, ox, oy);
@@ -285,8 +325,10 @@ function drawBody(
     px(ctx, 2, 10, p.skin, scale, ox, oy);
     px(ctx, 9, 8, p.top, scale, ox, oy);
     px(ctx, 9, 7, p.skin, scale, ox, oy);
-    px(ctx, 10, 7, '#8B6914', scale, ox, oy);
-    px(ctx, 10, 6, '#8B6914', scale, ox, oy);
+    // Space mug (cylindrical)
+    px(ctx, 10, 7, '#607D8B', scale, ox, oy);
+    px(ctx, 10, 6, '#546E7A', scale, ox, oy);
+    px(ctx, 11, 7, '#78909C', scale, ox, oy);
     if (frame === 0) {
       px(ctx, 10, 5, '#FFFFFF80', scale, ox, oy);
       px(ctx, 11, 4, '#FFFFFF60', scale, ox, oy);
@@ -310,14 +352,19 @@ function drawBody(
     drawStandingLegs(ctx, p, scale, ox, oy);
 
   } else if (anim === 'headphones') {
-    px(ctx, 2, 3, '#FF5722', scale, ox, oy);
-    px(ctx, 3, 2, '#FF5722', scale, ox, oy);
-    px(ctx, 8, 2, '#FF5722', scale, ox, oy);
-    px(ctx, 9, 3, '#FF5722', scale, ox, oy);
-    px(ctx, 2, 4, '#FF5722', scale, ox, oy);
-    px(ctx, 2, 5, '#FF5722', scale, ox, oy);
-    px(ctx, 9, 4, '#FF5722', scale, ox, oy);
-    px(ctx, 9, 5, '#FF5722', scale, ox, oy);
+    // Space headset
+    px(ctx, 2, 3, '#ff6b00', scale, ox, oy);
+    px(ctx, 3, 2, '#ff6b00', scale, ox, oy);
+    px(ctx, 8, 2, '#ff6b00', scale, ox, oy);
+    px(ctx, 9, 3, '#ff6b00', scale, ox, oy);
+    px(ctx, 2, 4, '#ff8800', scale, ox, oy);
+    px(ctx, 2, 5, '#ff8800', scale, ox, oy);
+    px(ctx, 9, 4, '#ff8800', scale, ox, oy);
+    px(ctx, 9, 5, '#ff8800', scale, ox, oy);
+    // Mic
+    px(ctx, 1, 6, '#455A64', scale, ox, oy);
+    px(ctx, 1, 7, '#37474F', scale, ox, oy);
+    
     for (let row = 8; row <= 12; row++) {
       for (let i = 3; i <= 8; i++) {
         px(ctx, i, row, row === 8 ? p.topLight : p.top, scale, ox, oy);
@@ -360,10 +407,11 @@ function drawBody(
     px(ctx, 2, 10, p.skin, scale, ox, oy);
     px(ctx, 9, 9, p.top, scale, ox, oy);
     px(ctx, 10, 9, p.skin, scale, ox, oy);
-    px(ctx, 11, 8, '#FFFFFF', scale, ox, oy);
-    px(ctx, 11, 9, '#FFFFFF', scale, ox, oy);
-    px(ctx, 12, 8, '#FFFFFF', scale, ox, oy);
-    px(ctx, 12, 9, '#FFFFFF', scale, ox, oy);
+    // Datapad
+    px(ctx, 11, 8, '#37474F', scale, ox, oy);
+    px(ctx, 11, 9, '#37474F', scale, ox, oy);
+    px(ctx, 12, 8, '#00ccff', scale, ox, oy);
+    px(ctx, 12, 9, '#00aadd', scale, ox, oy);
     drawStandingLegs(ctx, p, scale, ox, oy);
 
   } else if (anim === 'run') {
@@ -390,6 +438,7 @@ function drawBody(
         px(ctx, i, row, row === 8 ? p.topLight : p.top, scale, ox, oy);
       }
     }
+    // Suit details
     px(ctx, 5, 10, p.topLight, scale, ox, oy);
     px(ctx, 6, 10, p.topLight, scale, ox, oy);
     px(ctx, 2, 9, p.top, scale, ox, oy);
@@ -423,7 +472,9 @@ export function drawAgent(
   emoji: string,
 ): void {
   const pal = agentPalette(avatar, color);
-  drawCharacter(ctx, x, y, anim, direction, tick, pal, emoji, avatar === 'glasses', false);
+  const isDroid = avatar === 'droid';
+  const hasAntenna = avatar === 'alien_cat' || avatar === 'alien_dog';
+  drawCharacter(ctx, x, y, anim, direction, tick, pal, emoji, isDroid, hasAntenna);
 }
 
 export function drawOwner(
@@ -435,7 +486,7 @@ export function drawOwner(
   emoji: string,
 ): void {
   const pal = ownerPalette(avatar);
-  drawCharacter(ctx, x, y, anim, 's', tick, pal, emoji, false, avatar === 'boss');
+  drawCharacter(ctx, x, y, anim, 's', tick, pal, emoji, false, false);
 }
 
 export function drawNameTag(

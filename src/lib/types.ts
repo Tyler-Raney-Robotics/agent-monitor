@@ -1,5 +1,5 @@
 // ============================================================================
-// Agent Dashboard — Core Type Definitions
+// Agent Dashboard — Core Type Definitions (Space Station Theme)
 // ============================================================================
 
 // ---------------------------------------------------------------------------
@@ -45,17 +45,20 @@ export type AgentState =
   | 'waiting'
   | 'arriving';
 
-/** Office zone identifiers */
+/** Space station zone identifiers */
 export type ZoneId =
-  | 'desk_0' | 'desk_1' | 'desk_2' | 'desk_3' | 'desk_4' | 'desk_5'
-  | 'boss_office'
-  | 'break_room'
-  | 'meeting_room'
-  | 'whiteboard'
-  | 'library'
-  | 'lounge'
-  | 'server_room'
-  | 'entrance';
+  | 'console_0' | 'console_1' | 'console_2' | 'console_3' | 'console_4' | 'console_5'
+  | 'command_bridge'
+  | 'mess_hall'
+  | 'briefing_room'
+  | 'research_bay'
+  | 'crew_quarters'
+  | 'observation_deck'
+  | 'server_core'
+  | 'airlock'
+  | 'project_lab_1'
+  | 'project_lab_2'
+  | 'project_lab_3';
 
 /** Pixel coordinate in screen space */
 export interface ScreenPos {
@@ -87,32 +90,30 @@ export type CharacterAnim =
   | 'thumbs_up'
   | 'hand_task';
 
-/** Furniture/object type */
+/** Furniture/object type (space station) */
 export type FurnitureType =
-  | 'desk'
-  | 'chair'
-  | 'monitor'
-  | 'keyboard'
-  | 'big_desk'
-  | 'floor_window'
-  | 'coffee_machine'
-  | 'snack_shelf'
-  | 'water_cooler'
-  | 'small_table'
-  | 'round_table'
-  | 'long_table'
-  | 'whiteboard_obj'
-  | 'bookshelf'
-  | 'reading_chair'
-  | 'sofa'
-  | 'coffee_table'
+  | 'console_station'
+  | 'command_chair'
+  | 'holographic_display'
+  | 'viewport'
+  | 'bulkhead'
+  | 'airlock_door'
   | 'server_rack'
-  | 'potted_plant'
-  | 'carpet'
-  | 'wall_clock'
-  | 'poster'
-  | 'meeting_chair'
-  | 'door_mat';
+  | 'oxygen_plant'
+  | 'cryopod'
+  | 'food_synthesizer'
+  | 'water_recycler'
+  | 'briefing_table'
+  | 'briefing_chair'
+  | 'research_console'
+  | 'specimen_tank'
+  | 'status_panel'
+  | 'star_map'
+  | 'mission_patch'
+  | 'warning_light'
+  | 'floor_grating'
+  | 'big_console'
+  | 'captain_chair';
 
 /** A furniture item placed on the map */
 export interface FurnitureItem {
@@ -198,11 +199,11 @@ export interface OfficeState {
 // Dashboard Data Types
 // ---------------------------------------------------------------------------
 
-/** Avatar preset for agents */
-export type AgentAvatar = 'glasses' | 'hoodie' | 'suit' | 'casual' | 'robot' | 'cat' | 'dog';
+/** Avatar preset for agents (space crew) */
+export type AgentAvatar = 'commander' | 'engineer' | 'scientist' | 'technician' | 'droid' | 'alien_cat' | 'alien_dog';
 
 /** Avatar preset for the owner */
-export type OwnerAvatar = 'boss' | 'casual' | 'creative';
+export type OwnerAvatar = 'captain' | 'admiral' | 'mission_control';
 
 /** Theme preset */
 export type ThemeName = 'default' | 'dark' | 'cozy' | 'cyberpunk';
